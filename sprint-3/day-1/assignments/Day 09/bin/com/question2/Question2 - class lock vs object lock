@@ -1,0 +1,46 @@
+Q2/- What’s the difference between class lock and object lock?
+
+Answer-
+
+Class level lock-
+1. This lock can be used when we want to prevent multiple threads to enter the 
+synchronized block of available instanced on runtime.
+2. This lock is used to make static data thread-safe.
+3. Multiple objects of a particular class may exist but there is always one 
+class’s class object lock available.
+4. We can get a class level lock as follows:
+
+public class Lock {
+
+  public void m1( ) {
+
+     synchronized (Lock.class) {
+
+    // some line of code 
+
+  }
+
+}
+
+------------------------------------------------
+
+Object level lock-
+1. This lock is used when we want a non-static method or non-static block 
+of our code should be accessed by only one thread at a time.
+2. This lock is used to make non-static data thread-safe.
+3. Every object the class have their own lock.
+4. We can get object level lock as follows:
+
+public class Lock {
+
+  public void m1( ) {
+
+     synchronized (this) {
+
+        // some line of code
+
+     }
+
+  }
+
+}

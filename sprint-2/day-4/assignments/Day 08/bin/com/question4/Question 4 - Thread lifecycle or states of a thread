@@ -1,0 +1,29 @@
+Q4) What are the different states of a thread, or what is thread lifecycle?
+
+Answer- 
+
+--A thread goes through various stages in its lifecycle. For example, a thread is born, 
+started, runs, and then dies.
+
+--Following are the stages of the life cycle −
+
+1. New state- A new thread begins its life cycle in the new state. It remains in this state
+until the program starts the thread. It is also referred to as a born thread.
+		Thread t = new Thread(r);
+ 
+2. Runnable state- After a newly born thread is started, the thread becomes 
+runnable. A thread in this state is considered to be executing its task.
+		t.start()
+
+3. Waiting/ Running state- Sometimes, a thread transitions to the waiting state while 
+the thread waits for another thread to perform a task. Thread transitions back to the 
+runnable state only when another thread signals the waiting thread to continue 
+executing.
+
+4. Timed Waiting/ Blocked state- A runnable thread can enter the timed waiting state 
+for a specified interval of time. A thread in this state transitions back to the runnable 
+state when that time interval expires or when the event it is waiting for occurs.
+
+5. Tetminated/ Dead state- A runnable thread enters the terminated state when it 
+completes its task(when run method completes) or otherwise terminates.
+

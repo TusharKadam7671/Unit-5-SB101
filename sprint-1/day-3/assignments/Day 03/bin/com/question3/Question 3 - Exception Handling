@@ -1,0 +1,98 @@
+Q3) What is exception handling in java, Write the hierarchy of Exception class and, Mention some
+of the predefined Exception classes at least 5, and the reason when those exception class
+object is generated in our application.
+
+Answer-
+
+--Exception handling in java is one of the powerful mechanism to handle the runtime errors
+	so that the normal flow of the application can be maintained.
+	
+--Exception is an abnormal condition. In Java, an exception is an event that disrupts the
+	normal flow of the program. It is an object which is thrown at runtime.
+	
+-------------------------------------------------------------------------------------
+		Hierarchy of Exception class
+		
+--The java.lang.Throwable class is the root class of Java Exception hierachy inherited
+	by two subclasses: Exception and Error. The hierarchy of Exception classes-
+	
+													Throwable
+														|
+														|
+					|																		|
+				Exception(Total-4)							 				 			Error(Total-3)
+	|			|			|				|								|					|				|		
+IOException SQLException ClassNot		RuntimeException(4-Types)	StackOverflowError VirtualMachineError OutOfMemoryError
+						FoundException		|
+											|
+											|
+					|				|					|						|
+			ArithmeticException	NullPointerException NumberFormatException IndexOutOfBoundException(2-Types)
+																				|
+																				|
+																	|					|
+													ArrayIndexOutOfBoundsException  StringIndexOutOfBoundsException
+												
+------------------------------------------------------------------------------------------------------------------------
+			
+1)ArithmeticException-
+	if we divide any number by zero, there occurs an ArithmeticException.
+	
+	int a = 50/0;	//ArithmeticException
+	
+2)NullPointerException-
+	if we have a null value in any varialbe, performing any operation on the variable
+throws a NullPointerException
+
+	String s = null;
+	System.out.println(s.length()):	//NullPointerException
+	
+3)ArrayIndexOutOfBoundsException-
+	when an array exceeds to it's size, the ArrayIndexOutOfBoundsException occurs. there
+may be other reasons to occur ArrayIndexOutOfBoundsException.
+	
+	int a[] = new int[5];
+	a[10] = 50; //ArrayIndexOutOfBoundsExceptions
+	
+4)NumberFormatException-
+	this type of exception occurs when you pass a string to a method that cannot be
+converted to a number.
+
+	int n = Integer.parseInt("Test"); //NumberFormatException
+
+5)StringIndexOutOfBoundsException-
+	String a = "This is like chipping ";	//length is 22
+	char c = a.charAt(24);	//accessing 25th element
+	//So StringIndexOutOfBoundsException occures.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,17 @@
+Q1/ - Write down some predefined Functional interfaces in the java library at least 4
+interfaces, with their methods.
+
+Answer-
+
+some predefined interfaces, considered as functional interface and their method-
+1) java.lang.Comparable : public int compareto(Object obj);
+2) java.util.Comparator : public int compare(Object obj1, Object obj2);
+3) java.lang.runnable : public void run();
+
+in java 8 some of new functional interfaces introduced to perform functional style
+progrmming. These interfaces belongs to java.util.function package.
+
+1)Predicate<T>	: public boolean test(T t);
+2)Consumer<T>	: public void accept (T t);
+3)Supplier<T>	: public T get();
+4)Function<T,R> : public R apply (T t);

@@ -1,0 +1,13 @@
+Q1/- Explain the meaning of the deadlock in multithreaded application, when it can occur in
+multithreading applications.Write one example of deadlock.
+
+Answer- 
+
+--Dead lock means a lock without key.
+--in this situation two threads waiting for each other forever means for infinite time.
+
+--synchronized keyword is responsible for creating this dead lock situation
+
+--There is no solution on this problem but we can prevent this.
+
+

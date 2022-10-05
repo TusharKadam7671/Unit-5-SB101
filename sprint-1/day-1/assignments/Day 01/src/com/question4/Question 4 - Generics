@@ -1,0 +1,91 @@
+Question 4: Explain Generics in Java and Its Importance with example
+
+Answer-
+
+The Java Generics deal with type-safe objects. It makes the code stable by detecting the
+bugs at compile time.
+
+Advantages of Generics-
+1.Type-safety- we can hold only a single type of objects in generics. It doesn't allow
+	to store other objects.
+
+2.Type casting is not required- There is no need to downcast the object.
+
+List list = new ArrayList();
+list.add("hello");
+String s = (String) list.get(0);	//downcasting is required
+
+List<String> list = new ArrayList<String>();
+list.add("hello");
+String s = list.get(0); // no cast
+
+3.Compile-Time Checking- It is checked at compile time so problem will not occur at
+	runtime. The good programming strategy says it is far better to handle the problem
+	at compile time than runtime.
+
+4.Code reuse − You can write a method or, Class or, interface using generic type once 
+	and you can use this code multiple times with various parameters.
+
+
+	
+class Student<T>{
+   T age;
+   
+   Student(T age){
+   this.age = age;
+}
+   public void display() {
+    System.out.println("Value of age: "+this.age);
+   }
+}
+
+
+public class GenericsExample {
+
+   public static void main(String args[]) {
+   
+      Student<Float> std1 = new Student<Float>(25.5f);
+      std1.display();
+      
+      Student<String> std2 = new Student<String>("25");
+      std2.display();
+      
+      Student<Integer> std3 = new Student<Integer>(25);
+      std3.display();
+   }
+}
+
+
+*Output-
+
+Value of age: 25.5
+Value of age: 25
+Value of age: 25
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

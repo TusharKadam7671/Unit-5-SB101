@@ -1,0 +1,165 @@
+
+//to create Student table-
+
+create table Student
+(
+roll int primary key,
+name varchar(12) not null,
+address varchar(10) not null,
+mobile varchar(10) not null
+);
+
+mysql> desc Student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll    | int         | NO   | PRI | NULL    |       |
+| name    | varchar(12) | NO   |     | NULL    |       |
+| address | varchar(10) | NO   |     | NULL    |       |
+| mobile  | varchar(10) | NO   |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+//to create Course table-
+
+create table Course
+(
+cid int primary key,
+cname varchar(12) not null,
+fee int not null,
+duration varchar(12) not null
+);
+
+mysql> desc Course;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| cid      | int         | NO   | PRI | NULL    |       |
+| cname    | varchar(12) | NO   |     | NULL    |       |
+| fee      | int         | NO   |     | NULL    |       |
+| duration | varchar(12) | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+//to establish many-to-many we need another table-
+
+create table Student_Course
+(
+roll int,
+cid int,
+Foreign key(roll) references Student(roll),
+Foreign key(cid) references course(cid)
+);
+
+mysql> desc Student_Course;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| roll  | int  | YES  | MUL | NULL    |       |
+| cid   | int  | YES  | MUL | NULL    |       |
++-------+------+------+-----+---------+-------+
+
+● Write a JDBC application to insert 5 Student details by taking input from the
+user(Venkat, Amit, Raj, Binay, Suresh).
+
+InsertJDBC.java created.
+
+mysql> select * from Student;
++------+--------+---------+--------+
+| roll | name   | address | mobile |
++------+--------+---------+--------+
+|    1 | Venkat | Chennai | 1234   |
+|    2 | Amit   | Pune    | 4562   |
+|    3 | Raj    | Mumbai  | 4698   |
+|    4 | Binay  | Delhi   | 4697   |
+|    5 | Suresh | Kolkata | 6781   |
++------+--------+---------+--------+
+
+
+
+● Write a JDBC application to insert 5 Course details by taking input from the
+user(Java, Spring, Hibernate, React, Angular).
+
+CourseJDBC.java created.
+
+mysql> select * from Course;
++-----+-----------+------+----------+
+| cid | cname     | fee  | duration |
++-----+-----------+------+----------+
+|   1 | Java      | 9000 | 8Months  |
+|   2 | Spring    | 6000 | 4Months  |
+|   3 | Hibernate | 5000 | 3Months  |
+|   4 | React     | 8000 | 7Months  |
+|   5 | Angular   | 7500 | 7Months  |
++-----+-----------+------+----------+
+
+● Write a SQL to enroll Amit in Java and Spring.
+
+mysql> insert into Student_Course
+    -> values(2,1);
+
+mysql> insert into Student_Course
+    -> values(2,2);
+
+● Write a SQL to enroll Venkat in Java and React
+
+mysql> insert into Student_Course
+    -> values(1,1);
+
+mysql> insert into Student_Course
+    -> values(1,4);
+
+● Write a SQL to enroll Raj in Spring and Angular
+
+mysql> insert into Student_Course
+    -> values(3,2);
+
+mysql> insert into Student_Course
+    -> values(3,5);
+
+
+● Write a SQL to enroll Suresh in Java, Hibernate and React
+
+mysql> insert into Student_Course
+    -> values(5,1);
+
+mysql> insert into Student_Course
+    -> values(5,3);
+
+mysql> insert into Student_Course
+    -> values(5,4);
+
+● Write a SQL to enroll Binay in React.
+
+mysql> insert into Student_Course
+    -> values(4,4);
+
+
+● Write a JDBC application to take the Student roll number from the user and print all
+course details in which he has enrolled.
+(If the user will pass any invalid student roll number then print(No record found))
+
+DetailsJDBC.java created.
+
+● Write a JDBC application to take a Course name from the user and print all the
+Student details who enrolled in that course.
+
+PrintStudentJDBC.java created.
+
+select Student.roll,Student.name, Student.address, Student.mobile
+from Student inner join Course inner join Student_Course 
+on student.roll=Student_Course.roll AND Course.cid=Student_Course.cid 
+where Course.cname='Java';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

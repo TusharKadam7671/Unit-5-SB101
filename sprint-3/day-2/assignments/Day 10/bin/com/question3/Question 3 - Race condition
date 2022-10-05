@@ -1,0 +1,17 @@
+Q4/- What is a Race condition, How will you solve the Race condition,explain with an
+Example.
+
+Answer- 
+
+--The concept of avoiding multiple threads acting upon the same functionality simultaneously
+is known as Thread-safety.
+--Concurrency issue lead to the Rac-condition and race-condition lead to data inconsistency.
+
+--Race-condition can be defined as a condition in which two or more threads compete
+together to get certain shared resources.
+
+--To solve the data inconsistency problem in java *synchronized* keyword is used.
+--so the thread-safety is achieved and race-condition is avoided by the help of synchronized
+keyword.
+
+Example- refer Common.java, ThreadA.java, ThreadB.java and Main.java.

@@ -1,0 +1,21 @@
+Q5/- What is the Difference between the sleep and join method .
+
+Answer-
+
+Sleep method-
+1.Purpose - If a thread does not want to perform any operation for a particular 
+amount of time, then it goes for sleep()
+2.Is it overloaded? - yes
+3.Is it final? - no
+4.Is it throws? - yes
+5.Is it native? - sleep(long ms)->native & sleep (long ms, int ns)-> non native
+6.Is is static? - yes
+
+join method-
+1.Purpose - If a thread wants to wait until completing of some other thread then 
+we should go for join()
+2.Is it overloaded? - yes
+3.Is it final? - yes
+4.Is it throws? - yes
+5.Is it native? - no
+6.Is is static? - no

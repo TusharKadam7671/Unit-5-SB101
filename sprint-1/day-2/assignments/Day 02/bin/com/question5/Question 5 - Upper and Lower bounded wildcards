@@ -1,0 +1,84 @@
+ Explain Difference between Upper Bounded Wildcards and Lower Bounded Wildcards with Example.
+ 
+ Answer-
+ 
+ 					Upper Bounded Wildcards-
+ 1.The purpose of upper bounded wildcards is to decrease the restrictions on a variable.
+ 	It restricts the unknown type to be a specific type or a subtype of that type.
+ 2.It is used by declaring wildcard character ("?") followed by the extends (in case of,
+ 	class) or implements (in case of, interface) keyword, followed by its upper bound.
+ 3.Syntax-
+ 	List<? extends Number>
+ 
+ 
+ 					Lower Bounded Wildcards-
+ 1.The purpose of lower bounded wildcards is to restrict the unknown type to be a specific
+ 	type or a supertype of that type.
+ 2.It is used by declaring wildcard character("?") followed by the super keyword, followed
+ 	by its lower bound.
+ 3.Syntax-
+ 	List<? super Integer>
+ 
+ 	
+ --Upper Bounded Wildcards example-
+ 
+The sumOfList method returns the sum of the numbers in a list:
+
+		public static double sumOfList(List<? extends Number> list) {
+    		double s = 0.0;
+    		for (Number n : list)
+        	s += n.doubleValue();
+    		return s;
+		}
+
+//The following code, using a list of Integer objects, prints sum = 6.0:
+
+List<Integer> li = Arrays.asList(1, 2, 3);
+System.out.println("sum = " + sumOfList(li));
+
+
+//A list of Double values can use the same sumOfList method. The following code prints sum = 7.0:
+
+List<Double> ld = Arrays.asList(1.2, 2.3, 3.5);
+System.out.println("sum = " + sumOfList(ld));
+
+
+--Lower Bounded Wildcards example-
+
+public static void sumOfList(List<? extends Number> list) {
+		
+//		the method that works on lists of Integer and the supertypes of Integer, such as Integer, Number, and Object
+	
+		System.out.println(list);
+	
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		// Lower Bounded Integer List
+		List<Integer> li = Arrays.asList(1, 2, 3);
+		sumOfList(li);
+	
+		 // Number list
+		List<Number> ld = Arrays.asList(1.2, 2.3, 3.5);
+		sumOfList(ld);
+		
+		
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

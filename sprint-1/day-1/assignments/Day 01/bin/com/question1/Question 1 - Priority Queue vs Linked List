@@ -1,0 +1,79 @@
+Question 1: Explain difference between PriorityQueue() and LinkedList().
+
+Answer-
+
+A)Priority Queue-
+1.At the time of insertion PriorityQueue will be sorted as well ordered as per the natural
+	order but we can add a comparator also in order to define the particular order of
+	sorting for a record.
+2.A priority queue does not permit null elements.
+
+B)Linked List-
+1.While LinkedList will be just ordered.
+2.Permits all elements including null.
+
+
+--Example-
+
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Queue;
+
+public class QueueInJava {
+
+public static void main(String[] args) {
+
+//linked list
+    Queue<String> queue = new LinkedList<>(); 
+    
+    queue.add("Ishfaq");
+    queue.add("Ramzan");
+    queue.add("Nagoo");
+    queue.add("Bangalore");
+    
+    System.out.println("Linked List Queue is:" + queue);
+    System.out.println("Linked List Queue Peek is :" + queue.peek());
+    
+    queue.poll();
+    System.out.println("Linked List Queue after remove is:" + queue);
+    
+
+//priority queue   
+    Queue<Integer> queuenew = new PriorityQueue<>();
+      
+    queuenew.add(2);
+    queuenew.add(3);
+    queuenew.add(1);
+    queuenew.add(0);
+    queuenew.add(4);
+    
+    System.out.println("Priority Queue is:" + queuenew);
+    System.out.println("Priority Queue Peek is :" + queuenew.peek());
+    
+    int ieleFirst=queuenew.remove();
+    System.out.println("Priority Queue Element Removed is:" + ieleFirst);
+    
+    int ieleSecond=queuenew.remove();
+    System.out.println("Priority Queue Element Removed is:" + ieleSecond);
+    
+    System.out.println("Priority Queue after remove is:" + queuenew);
+  }
+
+}
+Output:
+
+Linked List Queue is: [Ishfaq, Ramzan, Nagoo, Bangalore]
+
+Linked List Queue Peek is: Ishfaq
+
+Linked List Queue after remove() is: [Ramzan, Nagoo, Bangalore]
+
+Priority Queue is: [0, 1, 2, 3, 4]
+
+Priority Queue Peek is: 0
+
+Priority Queue Element Removed is: 0
+
+Priority Queue Element Removed is: 1
+
+Priority Queue after remove() is: [2, 3, 4] 

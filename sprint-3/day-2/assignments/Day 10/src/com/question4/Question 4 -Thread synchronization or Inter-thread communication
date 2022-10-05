@@ -1,0 +1,26 @@
+Q4/ Explain about thread synchronization(inter-thread communication).
+
+Answer-
+--It means two synchronized threads communicate with each other.
+--for communication some methods are present in Object class-> wait(), notify(), notifyAll() etc.
+--By using above methods we can gain partial control on the scheduling mechanism which is 
+supervised by the thread-scheduler.
+
+--wait() method-> to suspends a synchronized thread unconditionally.
+--notify() method-> to resume a suspended (waiting thread)
+
+--In the inter-thread communicaton the thread which require updatation it has to call
+wait() method. The thread which performing updatation it will call notify() method so that
+waiting thread will gets the notification and it continueus its execution with those updatation.
+
+--Important- we can call wait(), notify(), notifyAll() methods only in the synchronized methods or
+blocks, otherwise we will get a runtime exception.
+
+--To call wait(0 or notify() method on any object we must have that particular object lock
+otherwise we will get a runtime exception called IllegalMonitorStateException.
+
+--Once a thread calls wait() method on any object, first it releases the lock immediately
+of that particular object and then it enters into the waiting state immediately.
+
+--Once a thread calls notify() method on any object it also releases the lock of that object but not
+immediately.

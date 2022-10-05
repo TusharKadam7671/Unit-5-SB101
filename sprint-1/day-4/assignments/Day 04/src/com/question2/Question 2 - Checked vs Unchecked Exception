@@ -1,0 +1,76 @@
+Question 2) Explain the difference between Checked and Unchecked exceptions. write some
+examples of checked and unchecked exception classes.
+
+Answer-
+
+Checked Exception-
+
+1.These exceptions are checked at compile time. These exceptions are handled at compile time too.
+2.These exceptions are direct subclasses of exception but not extended from RuntimeException class.
+3.The code gives a compilation error in the case when a method throws a checked exception. 
+	The compiler is not able to handle the exception on its own.
+4.These exceptions mostly occur when the probability of failure is too high.
+5.Common checked exceptions include IOException, DataAccessException, InterruptedException, etc.
+6.These exceptions are propagated using the throws keyword.
+7.It is required to provide the try-catch and try-finally block to handle the checked exception.
+
+Example-
+
+private static void checkedExceptionWithTryCatch() {
+
+    File file = new File("not_existing_file.txt");
+    
+    try {
+    
+        FileInputStream stream = new FileInputStream(file);
+        
+    } catch (FileNotFoundException e) {
+    
+        e.printStackTrace();
+    }
+}
+
+
+Unchecked Exception-
+
+1.These exceptions are just opposite to the checked exceptions. These exceptions are 
+	not checked and handled at compile time.
+2.They are the direct subclasses of the RuntimeException class.
+3.The code compiles without any error because the exceptions escape the notice of the compiler. 
+	These exceptions are the results of user-created errors in programming logic.
+4.These exceptions occur mostly due to programming mistakes.
+5.Common unchecked exceptions include ArithmeticException, InvalidClassException, NullPointerException, etc.
+6.These are automatically propagated.
+7.In the case of unchecked exception it is not mandatory.
+
+
+Example-
+
+class UncheckedException {    
+
+   public static void main(String args[])  
+   {  
+   
+    int postive = 35;  
+    int zero = 0;  
+    int result = positive/zero;  
+    //Give Unchecked Exception here.
+       
+	System.out.println(result);  
+	
+   }  
+} 
+
+class UncheckedException {  
+  
+   public static void main(String args[])  
+   {  
+   
+    int num[] ={10,20,30,40,50,60};  
+    System.out.println(num[7]);  
+    
+   }  
+}  
+
+
+

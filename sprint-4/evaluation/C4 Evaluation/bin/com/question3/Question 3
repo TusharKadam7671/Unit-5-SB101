@@ -1,0 +1,87 @@
+Q3/- How many types of relationships exist among tables in the
+Database? Explain with some examples, and also mention how to
+establish these relationships among tables with examples.
+
+
+Answer- There is three type of relatioship exist among tables in the database-
+		1.One to One
+		2.One to Many
+		3.Many to Many
+		
+		
+		
+1.One to One relationship-
+ The example of this is one person having only one driving licence or aadhaar card.
+ 
+ example- 
+ create table person
+ (
+ pid int primary key,
+ pname varchar(25),
+ address varchar(25)
+ );
+ 
+ create table Driving_Licence
+ (
+ dlid int primary key,
+ expiry date,
+ pid int,
+ foreign key (pid) references Person(pid)
+ );
+ 
+ --------------------------------------------------------------
+ 
+ 2.One to Many relationship-
+ The example of this is one department having many employees
+ 
+ create table Department
+(
+did int primary key,
+dname varchar(12) not null,
+location varchar(12) not null
+);
+
+create table Employee
+(
+empId int primary key,
+ename varchar(12) not null,
+address varchar(12) not null,
+mobile varchar(12) not null,
+salary int not null,
+deptId int,
+Foreign key (deptId) references Department(did)
+);
+
+
+------------------------------------------------------------
+ 
+ 3. Many to Many relationship-
+ The example of this is relationship between student table and course table, since there are
+ many students for one course and many courses for one student so it is many students many courses.
+ 
+ example of many to many relation
+ create table Student
+(
+roll int primary key,
+name varchar(12) not null,
+address varchar(10) not null,
+mobile varchar(10) not null
+);
+
+create table Course
+(
+cid int primary key,
+cname varchar(12) not null,
+fee int not null,
+duration varchar(12) not null
+);
+
+//to establish many-to-many we need another table-
+
+create table Student_Course
+(
+roll int,
+cid int,
+Foreign key(roll) references Student(roll),
+Foreign key(cid) references course(cid)
+);

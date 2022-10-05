@@ -1,0 +1,17 @@
+Q3/- What is the Serialization and deseiralization in Java
+
+Answer-
+
+--Serialization in Java is a mechanism of writing the state of an object into a byte-stream.
+
+--The reverse operation of serialization is called deserialization where byte-stream is converted 
+into an object. 
+
+--The serialization and deserialization process is platform-independent, 
+it means you can serialize an object on one platform and deserialize it on a different platform.
+
+--For serializing the object, we call the writeObject() method of ObjectOutputStream class, 
+and for deserialization we call the readObject() method of ObjectInputStream class.
+
+--We must have to implement the Serializable interface for serializing the object.
+

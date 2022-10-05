@@ -1,0 +1,180 @@
+create table Department
+(
+did int primary key,
+dname varchar(12) not null,
+location varchar(12) not null
+);
+
+mysql> desc department;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| did      | int         | NO   | PRI | NULL    |       |
+| dname    | varchar(12) | NO   |     | NULL    |       |
+| location | varchar(12) | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+● Establish a One-to-Many relationship between the Department and Employee table
+
+create table Employee
+(
+empId int primary key,
+ename varchar(12) not null,
+address varchar(12) not null,
+mobile varchar(12) not null,
+salary int not null,
+deptId int,
+Foreign key (deptId) references Department(did)
+);
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| empId   | int         | NO   | PRI | NULL    |       |
+| ename   | varchar(12) | NO   |     | NULL    |       |
+| address | varchar(12) | NO   |     | NULL    |       |
+| mobile  | varchar(12) | NO   |     | NULL    |       |
+| salary  | int         | NO   |     | NULL    |       |
+| deptId  | int         | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+
+● Using SQL insert 4 Department records in the Department table(Account, Sales,
+Marketing, HR).
+
+mysql> insert into Department values(1,'Account','Pune');
+mysql> insert into Department values(2,'Sales','Mumbai');
+mysql> insert into Department values(3,'Marketing','chennai');
+mysql> insert into Department values(4,'HR','Delhi');
+
+mysql> select * from Department;
++-----+-----------+----------+
+| did | dname     | location |
++-----+-----------+----------+
+|   1 | Account   | Pune     |
+|   2 | Sales     | Mumbai   |
+|   3 | Marketing | chennai  |
+|   4 | HR        | Delhi    |
++-----+-----------+----------+
+
+● Using SQL register 2 employees in Accounts Department
+
+mysql> insert into employee values(21,'Raj','Pune','9865',50000,1);
+mysql> insert into employee values(22,'Amit','Mumbai','7812',45000,1);
+
+mysql> select * from employee;
++-------+-------+---------+--------+--------+--------+
+| empId | ename | address | mobile | salary | deptId |
++-------+-------+---------+--------+--------+--------+
+|    21 | Raj   | Pune    | 9865   |  50000 |      1 |
+|    22 | Amit  | Mumbai  | 7812   |  45000 |      1 |
++-------+-------+---------+--------+--------+--------+
+
+● Using SQL register 3 employees in Sales Department.
+
+mysql> insert into employee values(23,'Binay','Kolkata','1562',49000,2);
+mysql> insert into employee values(24,'Venkat','Kochi','8641',26000,2);
+mysql> insert into employee values(25,'Ramesh','Chennai','7165',54000,2);
+
+● Using SQL register 2 employees in Marketing Department.
+
+mysql> insert into employee values(26,'Suraj','Delhi','5641',38000,3);
+mysql> insert into employee values(27,'Rahul','Patna','1456',42000,3);
+
+
+● Using SQL register 2 employees in HR Department.
+
+mysql> insert into employee values(28,'Sairaj','Mumbai','9881',60000,4);
+mysql> insert into employee values(29,'Prakash','Delhi','4512',62000,4);
+
+mysql> select * from employee;
++-------+---------+---------+--------+--------+--------+
+| empId | ename   | address | mobile | salary | deptId |
++-------+---------+---------+--------+--------+--------+
+|    21 | Raj     | Pune    | 9865   |  50000 |      1 |
+|    22 | Amit    | Mumbai  | 7812   |  45000 |      1 |
+|    23 | Binay   | Kolkata | 1562   |  49000 |      2 |
+|    24 | Venkat  | Kochi   | 8641   |  26000 |      2 |
+|    25 | Ramesh  | Chennai | 7165   |  54000 |      2 |
+|    26 | Suraj   | Delhi   | 5641   |  38000 |      3 |
+|    27 | Rahul   | Patna   | 1456   |  42000 |      3 |
+|    28 | Sairaj  | Mumbai  | 9881   |  60000 |      4 |
+|    29 | Prakash | Delhi   | 4512   |  62000 |      4 |
++-------+---------+---------+--------+--------+--------+
+
+
+● Write a SQL query to get the total salary of employees, department-wise
+
+mysql> select sum(Employee.salary) as Total_Salary, Department.dname as Department_Name 
+from Employee inner join Department 
+on Employee.deptId=Department.did 
+group by deptID;
+
++--------------+-----------------+
+| Total_Salary | Department_Name |
++--------------+-----------------+
+|        95000 | Account         |
+|       129000 | Sales           |
+|        80000 | Marketing       |
+|       122000 | HR              |
++--------------+-----------------+
+
+
+● Write a SQL query to get all the employee details who enrolled in the Sales
+department.
+
+mysql> select *  from Employee inner join Department on Employee.deptId=Department.did  having Department.dname="Sales";
++-------+--------+---------+--------+--------+--------+-----+-------+----------+
+| empId | ename  | address | mobile | salary | deptId | did | dname | location |
++-------+--------+---------+--------+--------+--------+-----+-------+----------+
+|    23 | Binay  | Kolkata | 1562   |  49000 |      2 |   2 | Sales | Mumbai   |
+|    24 | Venkat | Kochi   | 8641   |  26000 |      2 |   2 | Sales | Mumbai   |
+|    25 | Ramesh | Chennai | 7165   |  54000 |      2 |   2 | Sales | Mumbai   |
++-------+--------+---------+--------+--------+--------+-----+-------+----------+
+
+● Write a SQL query to get the Department details for an employee based on the empId.
+
+mysql> select Department.did, Department.dname, Department.location  from Employee inner join Department on Employee.deptId=Department.did and Employee.empId=21;
++-----+---------+----------+
+| did | dname   | location |
++-----+---------+----------+
+|   1 | Account | Pune     |
++-----+---------+----------+
+
+● Write a SQL query to get the second highest salary paid employee from the
+Employee table.
+
+mysql> select * from Employee where salary =  (select max(salary) from Employee where salary < (select max(salary) from employee));
++-------+--------+---------+--------+--------+--------+
+| empId | ename  | address | mobile | salary | deptId |
++-------+--------+---------+--------+--------+--------+
+|    28 | Sairaj | Mumbai  | 9881   |  60000 |      4 |
++-------+--------+---------+--------+--------+--------+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

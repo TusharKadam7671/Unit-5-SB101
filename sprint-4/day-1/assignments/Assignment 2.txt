@@ -1,0 +1,336 @@
+mysql> create database assignment2;
+
+mysql> use assignment2;
+Database changed
+
+mysql> CREATE TABLE customers (
+    -> customer_id INT PRIMARY KEY,
+    -> first_name VARCHAR(255) NOT NULL,
+    -> last_name VARCHAR(255) NOT NULL,
+    -> email VARCHAR(255) NOT NULL,
+    -> address VARCHAR(255) DEFAULT NULL,
+    -> city VARCHAR(255) DEFAULT NULL,
+    -> state VARCHAR(2) DEFAULT NULL,
+    -> zip_code VARCHAR(5) DEFAULT NULL
+    -> );
+
+
+mysql> desc customers;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| customer_id | int          | NO   | PRI | NULL    |       |
+| first_name  | varchar(255) | NO   |     | NULL    |       |
+| last_name   | varchar(255) | NO   |     | NULL    |       |
+| email       | varchar(255) | NO   |     | NULL    |       |
+| address     | varchar(255) | YES  |     | NULL    |       |
+| city        | varchar(255) | YES  |     | NULL    |       |
+| state       | varchar(2)   | YES  |     | NULL    |       |
+| zip_code    | varchar(5)   | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+
+mysql> CREATE TABLE orders (
+    -> order_id INT PRIMARY KEY,
+    -> customer_id INT NOT NULL,
+    -> order_placed_date DATE NOT NULL,
+    -> FOREIGN KEY (customer_id) REFERENCES customers
+    -> (customer_id)
+    -> );
+
+mysql> show tables;
++-----------------------+
+| Tables_in_assignment2 |
++-----------------------+
+| customers             |
+| orders                |
++-----------------------+
+
+
+
+mysql> insert into customers values(1,'abc','a','abc@mail.com','1st street','chennai','TN','60001');
+mysql> insert into customers values(2,'efg','e','efg@mail.com','2nd street','Bangalore','KA','50002');
+mysql> insert into customers values(3,'ijk','i','ijk@mail.com','3rd street','Mumbai','MH','40002');
+
+mysql> select * from customers;
++-------------+------------+-----------+--------------+------------+-----------+-------+----------+
+| customer_id | first_name | last_name | email        | address    | city      | state | zip_code |
++-------------+------------+-----------+--------------+------------+-----------+-------+----------+
+|           1 | abc        | a         | abc@mail.com | 1st street | chennai   | TN    | 60001    |
+|           2 | efg        | e         | efg@mail.com | 2nd street | Bangalore | KA    | 50002    |
+|           3 | ijk        | i         | ijk@mail.com | 3rd street | Mumbai    | MH    | 40002    |
++-------------+------------+-----------+--------------+------------+-----------+-------+----------+
+
+
+mysql> insert into orders values(1,1,'2016-11-11');
+mysql> insert into orders values(2,1,'2016-10-01');
+mysql> insert into orders values(3,2,'2016-06-01');
+mysql> insert into orders values(4,2,'2015-06-01');
+mysql> insert into orders values(5,1,'2015-06-01');
+
+mysql> select * from orders;
++----------+-------------+-------------------+
+| order_id | customer_id | order_placed_date |
++----------+-------------+-------------------+
+|        1 |           1 | 2016-11-11        |
+|        2 |           1 | 2016-10-01        |
+|        3 |           2 | 2016-06-01        |
+|        4 |           2 | 2015-06-01        |
+|        5 |           1 | 2015-06-01        |
++----------+-------------+-------------------+
+
+
+mysql> SELECT
+    -> customers.email, COUNT(*) AS order_count
+    -> FROM
+    -> orders
+    -> INNER JOIN
+    -> customers on orders.customer_id = customers.customer_id
+    -> WHERE
+    -> orders.order_placed_date BETWEEN CAST('2016-01-01' AS DATE) AND CAST('2016-12-31' AS DATE)
+    -> GROUP BY
+    -> customers.email
+    -> ORDER BY
+    -> order_count DESC;
++--------------+-------------+
+| email        | order_count |
++--------------+-------------+
+| abc@mail.com |           2 |
+| efg@mail.com |           1 |
++--------------+-------------+
+
+//or
+
+mysql> select c.email, count(*) order_count from customers c , orders o where o.order_placed_date > '2015-12-31' 
+and o.customer_id = c.customer_id group by c.email order by order_count desc;
+
+mysql> select c.email, count(*) order_count from customers c , orders o where o.order_placed_date 
+between '2015-12-31' and '2016-12-31'  and o.customer_id = c.customer_id group by c.email order by order_count desc;
+
+-----------------------------------------------------------------------------------------------------------
+===========================================================================================================
+
+
+
+Question 2-
+
+mysql> CREATE DATABASE ORG;
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| assignment2        |
+| assignmentdb       |
+| information_schema |
+| mysql              |
+| org                |
+| performance_schema |
+| sb101db            |
+| sys                |
++--------------------+
+
+mysql> USE ORG;
+Database changed
+
+
+mysql> CREATE TABLE Worker (
+    -> WORKER_ID INT PRIMARY KEY,
+    -> FIRST_NAME VARCHAR(25),
+    -> LAST_NAME VARCHAR(25),
+    -> SALARY INT,
+    -> JOINING_DATE DATETIME,
+    -> DEPARTMENT VARCHAR(25)
+    -> );
+
+
+mysql> INSERT INTO Worker
+    -> (WORKER_ID, FIRST_NAME, LAST_NAME, SALARY, JOINING_DATE, DEPARTMENT)
+    -> VALUES
+    -> (001, 'Monika', 'Arora', 100000, '14-02-20 09.00.00', 'HR'),
+    -> (002, 'Niharika', 'Verma', 80000, '14-06-11 09.00.00', 'Admin'),
+    -> (003, 'Vishal', 'Singhal', 300000, '14-02-20 09.00.00', 'HR'),
+    -> (004, 'Amitabh', 'Singh', 500000, '14-02-20 09.00.00', 'Admin'),
+    -> (005, 'Vivek', 'Bhati', 500000, '14-06-11 09.00.00', 'Admin'),
+    -> (006, 'Vipul', 'Diwan', 200000, '14-06-11 09.00.00', 'Account'),
+    -> (007, 'Satish', 'Kumar', 75000, '14-01-20 09.00.00', 'Account'),
+    -> (008, 'Geetika', 'Chauhan', 90000, '14-04-11 09.00.00', 'Admin');
+
+
+mysql> CREATE TABLE Bonus (
+    -> WORKER_REF_ID INT,
+    -> BONUS_AMOUNT INT,
+    -> BONUS_DATE DATETIME,
+    -> FOREIGN KEY (WORKER_REF_ID)
+    -> REFERENCES Worker(WORKER_ID)
+    -> ON DELETE CASCADE
+    -> );
+
+
+mysql> INSERT INTO Bonus
+    -> (WORKER_REF_ID, BONUS_AMOUNT, BONUS_DATE) VALUES
+    -> (001, 5000, '16-02-20'),
+    -> (002, 3000, '16-06-11'),
+    -> (003, 4000, '16-02-20'),
+    -> (001, 4500, '16-02-20'),
+    -> (002, 3500, '16-06-11');
+
+
+mysql> CREATE TABLE Title (
+    -> WORKER_REF_ID INT,
+    -> WORKER_TITLE VARCHAR(25),
+    -> AFFECTED_FROM DATETIME,
+    -> FOREIGN KEY (WORKER_REF_ID)
+    -> REFERENCES Worker(WORKER_ID)
+    -> ON DELETE CASCADE
+    -> );
+
+
+mysql> INSERT INTO Title
+    -> (WORKER_REF_ID, WORKER_TITLE, AFFECTED_FROM) VALUES
+    -> (001, 'Manager', '2016-02-20 00:00:00'),
+    -> (002, 'Executive', '2016-06-11 00:00:00'),
+    -> (008, 'Executive', '2016-06-11 00:00:00'),
+    -> (005, 'Manager', '2016-06-11 00:00:00'),
+    -> (004, 'Asst. Manager', '2016-06-11 00:00:00'),
+    -> (007, 'Executive', '2016-06-11 00:00:00'),
+    -> (006, 'Lead', '2016-06-11 00:00:00'),
+    -> (003, 'Lead', '2016-06-11 00:00:00');
+
+
+mysql> show tables;
++---------------+
+| Tables_in_org |
++---------------+
+| bonus         |
+| title         |
+| worker        |
++---------------+
+
+
+mysql> select * from bonus;
++---------------+--------------+---------------------+
+| WORKER_REF_ID | BONUS_AMOUNT | BONUS_DATE          |
++---------------+--------------+---------------------+
+|             1 |         5000 | 2016-02-20 00:00:00 |
+|             2 |         3000 | 2016-06-11 00:00:00 |
+|             3 |         4000 | 2016-02-20 00:00:00 |
+|             1 |         4500 | 2016-02-20 00:00:00 |
+|             2 |         3500 | 2016-06-11 00:00:00 |
++---------------+--------------+---------------------+
+
+
+mysql> select * from title;
++---------------+---------------+---------------------+
+| WORKER_REF_ID | WORKER_TITLE  | AFFECTED_FROM       |
++---------------+---------------+---------------------+
+|             1 | Manager       | 2016-02-20 00:00:00 |
+|             2 | Executive     | 2016-06-11 00:00:00 |
+|             8 | Executive     | 2016-06-11 00:00:00 |
+|             5 | Manager       | 2016-06-11 00:00:00 |
+|             4 | Asst. Manager | 2016-06-11 00:00:00 |
+|             7 | Executive     | 2016-06-11 00:00:00 |
+|             6 | Lead          | 2016-06-11 00:00:00 |
+|             3 | Lead          | 2016-06-11 00:00:00 |
++---------------+---------------+---------------------+
+
+
+mysql> select * from worker;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |
+|         6 | Vipul      | Diwan     | 200000 | 2014-06-11 09:00:00 | Account    |
+|         7 | Satish     | Kumar     |  75000 | 2014-01-20 09:00:00 | Account    |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+
+
+1. Write an SQL query to show the second highest salary from a Worker table.
+mysql> select * from worker where salary = (select max(salary) from worker where salary < (select max(salary) from worker));
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
++-----------+------------+-----------+--------+---------------------+------------+
+
+
+2. Write an SQL query to determine the 5 highest salary from a Worker table.
+mysql> select worker_id, first_name, last_name, salary from Worker order by salary desc limit 4,1;
++-----------+------------+-----------+--------+
+| worker_id | first_name | last_name | salary |
++-----------+------------+-----------+--------+
+|         1 | Monika     | Arora     | 100000 |
++-----------+------------+-----------+--------+
+
+
+3. Write an SQL query to show only even rows from a Worker table.
+mysql> select * from worker where  mod (worker_id, 2) = 0;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         6 | Vipul      | Diwan     | 200000 | 2014-06-11 09:00:00 | Account    |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+
+
+mysql> select * from worker where  mod (worker_id, 2) <> 0;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |
+|         7 | Satish     | Kumar     |  75000 | 2014-01-20 09:00:00 | Account    |
++-----------+------------+-----------+--------+---------------------+------------+
+
+4. Write an SQL query to fetch the no. of workers for each department in descending order
+from the Worker table.
+mysql> SELECT DEPARTMENT, count(WORKER_ID) No_Of_Workers
+    -> FROM worker
+    -> GROUP BY DEPARTMENT
+    -> ORDER BY No_Of_Workers DESC;
++------------+---------------+
+| DEPARTMENT | No_Of_Workers |
++------------+---------------+
+| Admin      |             4 |
+| HR         |             2 |
+| Account    |             2 |
++------------+---------------+
+
+
+5. Write an SQL query to fetch the list of employees with the same salary from the Worker
+table.
+
+mysql>  select w1.worker_id, w1.first_name, w1.last_name from Worker w1, Worker w2 where w1.salary = w2.salary and w1.worker_id != w2.worker_id;
++-----------+------------+-----------+
+| worker_id | first_name | last_name |
++-----------+------------+-----------+
+|         5 | Vivek      | Bhati     |
+|         4 | Amitabh    | Singh     |
++-----------+------------+-----------+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
